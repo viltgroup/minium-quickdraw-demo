@@ -1,5 +1,5 @@
 var timeUnits = require("minium/timeunits");
-var browserUtils = require("browser-utils");
+require("browser-utils");
 
 function extractImageData () {
   var PADDING = 10;
@@ -42,7 +42,7 @@ function GoogleImagesPage(base, openWindow) {
 GoogleImagesPage.prototype.open = function () {
   if (this.openWindow) {
     // opens a new tab using browser-side javascript
-    this.parent.apply(browserUtils.openWindow, [ "https://images.google.com", '_blank' ]);
+    this.parent.openWindow("https://images.google.com", '_blank');
   } else {
     this.base.browser().get("https://images.google.com");
   }
@@ -57,8 +57,6 @@ GoogleImagesPage.prototype.close = function () {
 GoogleImagesPage.prototype.find = function (word) {
   this.open();
   
-  var stabilize = browserUtils.stabilize;
-  
   var searchFld = this.base.find(":text").withName("q");
   var searchBtn = this.base.find(":submit");
 
@@ -68,7 +66,7 @@ GoogleImagesPage.prototype.find = function (word) {
   var typeDropdown = this.base.find("[role=button]").withText("Type").unless(dropdownOptions);
   var typeOption = this.base.find("#itp_lineart a").visible();
   var imgThumbs = this.base.find("#rg_s .rg_i").unless(colorDropdown).unless(dropdownOptions);
-  var immersiveContainer = this.base.find(".immersive-container").withCss("visibility", "visible").applyWebElements(browserUtils.stabilize);
+  var immersiveContainer = this.base.find(".immersive-container").withCss("visibility", "visible").stabilize();
   var detailImg = immersiveContainer.find(".irc_mimg img[src^=http]");
   var viewImgBtn = immersiveContainer.find(".irc_but").withText("View image");
   

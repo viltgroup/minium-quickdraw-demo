@@ -1,4 +1,4 @@
-var browserUtils = require("browser-utils");
+require("browser-utils");
 
 function dropImage (imageData) {
   var elem = $(this).get(0);
@@ -118,7 +118,7 @@ function ContourPage(base, openWindow) {
 ContourPage.prototype.open = function () {
   if (this.openWindow) {
     // opens a new tab using browser-side javascript
-    this.parent.apply(browserUtils.openWindow, [ "https://jmperezperez.com/contour", '_blank' ]);
+    this.parent.openWindow("https://jmperezperez.com/contour", '_blank');
   } else {
     this.base.browser().get("https://jmperezperez.com/contour");
   }

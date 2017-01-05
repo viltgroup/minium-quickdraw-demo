@@ -1,11 +1,11 @@
 var timeUnits = require("minium/timeunits");
 var offsets = require("minium/offsets");
 var simplify = require("simplify");
-var browserUtils = require("browser-utils");
+require("browser-utils");
 
 function QuickDrawPage(base) {
   this.base = $(base);
-  this.newroundCard = this.base.find("#newround-card.visible").applyWebElements(browserUtils.stabilize);
+  this.newroundCard = this.base.find("#newround-card.visible").stabilize();
   this.drawingCanvas = this.base.find("#drawingCanvas").unless(".covercard.visible");
   this.playBtn = this.base.find("#button-play").visible();
   this.challengeWordElem = this.newroundCard.find("#challengetext-word");

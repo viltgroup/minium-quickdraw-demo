@@ -1,5 +1,5 @@
-var browserUtils = {
-  stabilize: function () {
+$.fn.stabilize = function () {
+  return this.applyWebElements(function () {
     return $(this).filter(function () {
       var prev = $(this).data("prevBoundingClientRect");
       var curr = $.extend({}, this.getBoundingClientRect());
@@ -13,11 +13,11 @@ var browserUtils = {
       $(this).data("prevBoundingClientRect", curr);
       return false;
     });
-  },
-  
-  openWindow: function (url, name, specs, replace) {
-    window.open(url, name || '_blank', specs, replace);
-  }
+  });
 };
-
-if (typeof module !== 'undefined') module.exports = browserUtils;
+  
+$.fn.openWindow = function () {
+  this.apply(function (url, name, specs, replace) {
+    window.open(url, name || '_blank', specs, replace);
+  }, Array.prototype.slice.call(arguments));
+};
